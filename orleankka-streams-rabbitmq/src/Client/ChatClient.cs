@@ -21,12 +21,14 @@ namespace Client
         public async Task Join()
         {
             await Subscribe();
-            await user.Tell(new Join {Room = RoomName});
+            
+            await user.Tell(new Join { Room = RoomName });
         }
 
         async Task Subscribe()
         {
-            var room = system.StreamOf("sms", RoomName);
+            var room = system.StreamOf(Constants.StreamProviderNameDefault, Constants.StreamNameSpaceCustomers);
+            
             subscription = await room.Subscribe<ChatRoomMessage>(message =>
             {
                 if (message.User != UserName)

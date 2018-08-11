@@ -15,7 +15,7 @@ namespace Server
         {
             Console.WriteLine("[server]: " + message);
 
-            var stream = System.StreamOf("sms", room);
+            var stream = System.StreamOf(Constants.StreamProviderNameDefault, Constants.StreamNameSpaceCustomers);
 
             return stream.Push(new ChatRoomMessage
             {

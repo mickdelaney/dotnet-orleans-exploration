@@ -48,7 +48,10 @@ namespace Client
                         .ConfigureServices(x => x
                             .AddSingleton<ConnectionToClusterLostHandler>((s, e) => OnClusterConnectionLost()))
                         .ConfigureApplicationParts(parts => 
-                            parts.AddApplicationPart(typeof(IChatUser).Assembly).WithReferences()
+                            parts
+                                .AddApplicationPart(typeof(IChatUser).Assembly)
+                                .WithReferences()
+                                .WithCodeGeneration()
                         )
                         .ConfigureLogging(logging => logging.AddConsole())
                         .UseOrleankka()

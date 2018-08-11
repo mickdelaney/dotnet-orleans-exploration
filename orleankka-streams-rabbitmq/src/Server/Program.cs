@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Orleans;
@@ -7,6 +8,7 @@ using Orleans.Configuration;
 using Orleans.Hosting;
 using Orleans.Streams;
 using Orleankka.Cluster;
+using Orleans.Storage;
 using Shared;
 
 namespace Server
@@ -55,9 +57,12 @@ namespace Server
                 .Configure<EndpointOptions>(options =>
                     options.AdvertisedIPAddress = IPAddress.Loopback
                 )
-                .ConfigureApplicationParts(parts =>
-                    parts.AddApplicationPart(typeof(Join).Assembly)
+                .ConfigureApplicationParts(x => x
+                        .AddApplicationPart(Assembly.GetExecutingAssembly())
+                        .AddApplicationPart(typeof(Join).Assembly)
+                        .AddApplicationPart(typeof(MemoryGrainStorage).Assembly)
                         .WithReferences()
+                        .WithCodeGeneration()
                 )
                 .ConfigureLogging(logging => logging.AddConsole())
                 .UseOrleankka();
