@@ -17,7 +17,9 @@ namespace OrleansRabbitMQ.Client
             var stream = client.GetStream<Command>(Guid.NewGuid(), Constants.StreamNameSpaceCustomers);
 
             StreamSubscriptionHandle<Command> subscriptionHandle = await stream.SubscribeAsync(new Observer());
-                
+
+            await Console.Out.WriteLineAsync("Sending Command");
+            
             await stream.OnNextAsync(new Command
             {
                 Value = $"TEST-{DateTime.Now.ToShortTimeString()}"

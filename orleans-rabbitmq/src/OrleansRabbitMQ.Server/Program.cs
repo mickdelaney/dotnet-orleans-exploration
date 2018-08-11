@@ -34,7 +34,7 @@ namespace OrleansRabbitMQ.Server
                         queueName: Constants.StreamNameSpaceCustomers
                     );
                     configurator.ConfigureCache(cacheSize: 100, cacheFillingTimeout: TimeSpan.FromSeconds(10));
-                    configurator.ConfigureStreamPubSub(StreamPubSubType.ExplicitGrainBasedOnly);
+                    configurator.ConfigureStreamPubSub(StreamPubSubType.ExplicitGrainBasedAndImplicit);
                     configurator.ConfigurePullingAgent
                     (
                         ob => ob.Configure
@@ -58,7 +58,7 @@ namespace OrleansRabbitMQ.Server
                     options.AdvertisedIPAddress = IPAddress.Loopback
                 )
                 .ConfigureApplicationParts(parts => 
-                    parts.AddApplicationPart(typeof(ReceiverGrain).Assembly).WithReferences()
+                    parts.AddApplicationPart(typeof(CustomerCommandHandlerGrain).Assembly).WithReferences()
                 )
                 .ConfigureLogging(logging => logging.AddConsole()); 
             

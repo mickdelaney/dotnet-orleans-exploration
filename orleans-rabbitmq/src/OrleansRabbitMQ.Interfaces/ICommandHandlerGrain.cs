@@ -2,7 +2,7 @@
 
 namespace OrleansRabbitMQ.Interfaces
 {
-    public interface IReceiverGrain : IGrainWithGuidKey
+    public interface ICommandHandlerGrain : IGrainWithGuidKey
     {
         
     }

@@ -41,7 +41,7 @@ namespace OrleansRabbitMQ.Client
                             );
                         })
                         .UseLocalhostClustering()
-                        .ConfigureApplicationParts(parts => parts.AddApplicationPart(typeof(ReceiverGrain).Assembly).WithReferences())
+                        .ConfigureApplicationParts(parts => parts.AddApplicationPart(typeof(CustomerCommandHandlerGrain).Assembly).WithReferences())
                         .ConfigureLogging(logging => logging.AddConsole())
                         .Build();
                     
